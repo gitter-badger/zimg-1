@@ -29,7 +29,7 @@ unsigned ceillog2(unsigned x)
 {
 	unsigned n = std::numeric_limits<unsigned>::digits;
 
-	for (; n != 0; --n) {
+	for (; n > 1; --n) {
 		if (x & (1U << (n - 1)))
 			break;
 	}
