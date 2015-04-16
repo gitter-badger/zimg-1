@@ -4,13 +4,14 @@
 #define FRAME_H_
 
 #include <cstdint>
+#include <vector>
 #include "Common/align.h"
 
 /**
  * Container for planar byte-aligned image data with 3 or 4 channels.
  */
 class Frame {
-	zimg::AlignedVector<uint8_t> m_data[4];
+	std::vector<zimg::AlignedVector<uint8_t>> m_data;
 	int m_width;
 	int m_height;
 	int m_pxsize;
@@ -29,7 +30,7 @@ public:
 	 * @param width image width
 	 * @param height image height
 	 * @param pxsize bytes per pixel
-	 * @param planes number of planes, up to 4
+	 * @param planes number of planes
 	 */
 	Frame(int width, int height, int pxsize, int planes);
 
