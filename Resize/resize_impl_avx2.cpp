@@ -665,8 +665,16 @@ void filter_line_u16_v(const FilterContext &filter, const LineBuffer<uint16_t> &
 		__m256i coeff45 = _mm256_unpacklo_epi16(coeff4, coeff5);
 		__m256i coeff67 = _mm256_unpacklo_epi16(coeff6, coeff7);
 
+		__m256i x0 = _mm256_setzero_si256();
+		__m256i x1 = _mm256_setzero_si256();
+		__m256i x2 = _mm256_setzero_si256();
+		__m256i x3 = _mm256_setzero_si256();
+		__m256i x4 = _mm256_setzero_si256();
+		__m256i x5 = _mm256_setzero_si256();
+		__m256i x6 = _mm256_setzero_si256();
+		__m256i x7 = _mm256_setzero_si256();
+
 		for (unsigned j = left; j < mod(right, 16); j += 16) {
-			__m256i x0, x1, x2, x3, x4, x5, x6, x7;
 			__m256i packed;
 
 			__m256i accum0l = _mm256_setzero_si256();
@@ -742,8 +750,16 @@ void filter_line_u16_v(const FilterContext &filter, const LineBuffer<uint16_t> &
 		__m256i coeff45 = _mm256_unpacklo_epi16(coeff4, coeff5);
 		__m256i coeff67 = _mm256_unpacklo_epi16(coeff6, coeff7);
 
+		__m256i x0 = _mm256_setzero_si256();
+		__m256i x1 = _mm256_setzero_si256();
+		__m256i x2 = _mm256_setzero_si256();
+		__m256i x3 = _mm256_setzero_si256();
+		__m256i x4 = _mm256_setzero_si256();
+		__m256i x5 = _mm256_setzero_si256();
+		__m256i x6 = _mm256_setzero_si256();
+		__m256i x7 = _mm256_setzero_si256();
+
 		for (unsigned j = left; j < mod(right, 16); j += 16) {
-			__m256i x0, x1, x2, x3, x4, x5, x6, x7;
 			__m256i packed;
 
 			__m256i accum0l = _mm256_setzero_si256();
