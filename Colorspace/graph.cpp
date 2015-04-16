@@ -88,7 +88,12 @@ class ColorspaceGraph {
 
 				while (tail != in) {
 					prev = parents[tail];
-					path.insert(path.begin(), std::find_if(m_edge[prev].begin(), m_edge[prev].end(), [=](const edge_type &e){ return e.first == tail; })->second);
+
+					auto it = std::find_if(m_edge[prev].begin(), m_edge[prev].end(), [=](const edge_type &e){ return e.first == tail; });
+					if (it == m_edge[prev].end())
+						throw ZimgLogicError{ "broken link encountered during graph traversal" };
+
+					path.insert(path.begin(), it->second);
 					tail = prev;
 				}
 
