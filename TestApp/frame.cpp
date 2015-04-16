@@ -137,7 +137,11 @@ Frame read_frame_bmp(const char *filename)
 	int width = biheader.biWidth;
 	int height = biheader.biHeight;
 	int channels = biheader.biBitCount == 32 ? 4 : 3;
-	size_t bmp_rowsize = align(width * channels, 4);
+
+	if (width < 0 || height < 0 || SIZE_MAX / channels < (unsigned)width)
+		throw std::runtime_error{ "bitmap dimensions out of bounds" };
+
+	size_t bmp_rowsize = align((size_t)width * channels, 4);
 
 	Frame frame{ width, height, 1, channels };
 	AlignedVector<uint8_t> buf(bmp_rowsize);
