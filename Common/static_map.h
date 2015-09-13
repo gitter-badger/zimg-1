@@ -88,12 +88,21 @@ public:
 
 	const_iterator find(const Key &key) const
 	{
+		// VC 12.0 produces an ICE here.
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
 		auto it = std::lower_bound(begin(), end(), value_type{ key, mapped_type{} }, m_head.get_value_comp());
 
 		if (it == end() || !equiv(it->first, key))
 			return end();
 		else
 			return it;
+#else
+		for (auto it = begin(); it != end(); ++it) {
+			if (equiv(it->first, key))
+				return it;
+		}
+		return end();
+#endif
 	}
 };
 
