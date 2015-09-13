@@ -153,7 +153,12 @@ class GraphNode {
 		}
 	};
 
+	// VC 12.0 does not support unions with non-trivial constructors.
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
 	union data_union {
+#else
+	struct data_union {
+#endif
 		struct {
 			unsigned width;
 			unsigned height;
