@@ -368,6 +368,30 @@ public:
 		std::unique_ptr<zimg::resize::Filter> filter_uv;
 		zimg::depth::DitherType dither_type;
 		zimg::CPUClass cpu;
+
+		// VC 12.0 does not support implicit move constructor/assignment operator.
+#if defined(_MSC_VER) && _MSC_VER < 1900
+		params() = default;
+
+		params(params &&other) :
+			filter{ std::move(other.filter) },
+			filter_uv{ std::move(other.filter_uv) },
+			dither_type{ other.dither_type },
+			cpu{ other.cpu }
+		{
+		}
+
+		params &operator=(params &&other)
+		{
+			if (this != &other) {
+				filter = std::move(other.filter);
+				filter_uv = std::move(other.filter_uv);
+				dither_type = other.dither_type;
+				cpu = other.cpu;
+			}
+			return *this;
+		}
+#endif
 	};
 
 	struct state {
